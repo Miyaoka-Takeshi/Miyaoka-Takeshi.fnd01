@@ -1,8 +1,6 @@
-#collect {
-    color:black;
-    background-color: white;
-    font-size: medium;
-    width: 200px;
-    height: 50px;
-    text-align: center;
+#container {
+    max-height: 800px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 10px;
 }
