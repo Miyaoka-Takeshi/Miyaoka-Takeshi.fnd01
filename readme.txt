@@ -23,5 +23,3 @@ Chrome拡張
   popup.html
    popup.css
    popup.js
-    result.html
-    result.js
