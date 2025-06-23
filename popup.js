@@ -1,17 +1,30 @@
-document.getElementById('collect').addEventListener('click', async () => {  //取得ボタンidを検索してaddEvent  async非同期
-  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true }); //今のタブの情報を取得  await終わったら次へ
-  await chrome.scripting.executeScript({    //現在のタブでcollectTooltips関数を実行
-    target: { tabId: tab.id },
-    function: collectTooltips
-  });
-  chrome.tabs.create({ url: chrome.runtime.getURL('results.html') });   //結果表示用のresult.htmlを表示
-});
+//console.log(document.querySelectorAll(".tooltip"));       //NodeList[span#2025-]
+//console.log(document.getElementsByClassName("tooltip"));  //HTMLCollection[span#2025-   ]
+function collectElements() {
+    const elements = document.querySelectorAll(".tooltip"); //getElementsByClassNameじゃだめ
+    const result = {};
 
-function collectTooltips() {
-  const elements = document.querySelectorAll('.tooltip');   //tooltipを探す
-  const data = {};
-  elements.forEach((el, i) => {
-    data[`tooltip_${i + 1}`] = el.innerText || '';          //中身を取得
-  });
-  localStorage.setItem('tooltipData', JSON.stringify(data));
+    elements.forEach(element => {
+        const id = element.id;
+        const innerText = element.innerText;
+
+        const idMatch = id.match(/GXTC\d{4}/);
+        let valueMatch = innerText.match(/～\s*(.*)/);
+
+        if (idMatch) {
+            result[idMatch] = valueMatch;
+        }
+    });
+    return result;
+}
+
+const result = collectElements();
+console.log(result);
+
+const container = document.getElementById('container');   //コンテナid検索 
+
+for (const key in result) {
+    const div = document.createElement('div');  //div追加
+    div.textContent = `${key}: ${result[key]}`;   //オブジェクト追加
+    container.appendChild(div);                 //要素追加
 }
