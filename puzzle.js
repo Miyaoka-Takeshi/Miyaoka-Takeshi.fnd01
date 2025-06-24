@@ -49,7 +49,8 @@ function move(eventKey) {  //方向(event.key)
 }
 
 const puzzle = document.getElementById("puzzle"); //divのidを検索
-let tiles = [1, 2, 3, 4, 5, 6, 7, 8, 0]; //初期値
+//let tiles = [1, 2, 3, 4, 5, 6, 7, 8, 0]; //初期値
+let tiles = [4, 1, 3, 7, 2, 5, 0, 8, 6]; //初期値
 
 document.addEventListener("keydown", (event) => { //function(event)
   move(event.key);
