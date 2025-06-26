@@ -2,6 +2,11 @@ body {
   text-align: center;
 }
 
+#select{
+  width:50px;
+  margin:auto;
+}
+
 #puzzle {   /*id*/
   display: grid;                            /*格子*/
   grid-template-columns: repeat(3, 100px);
